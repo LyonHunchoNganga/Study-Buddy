@@ -108,7 +108,6 @@ document.getElementById("reset-timer").addEventListener("click", () => {
 
 updateTimerDisplay();
 
-// === Dark Mode Toggle ===
 const toggle = document.getElementById("dark-mode-toggle");
 
 toggle.addEventListener("change", () => {
