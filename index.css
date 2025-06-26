@@ -11,8 +11,7 @@ body {
   justify-content: center;
   align-items: flex-start;
   padding: 40px 20px;
-}
-
+} 
 main {
   background: #230c81e8;
   max-width: 700px;
