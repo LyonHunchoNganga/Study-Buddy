@@ -77,7 +77,7 @@ function loadTodos() {
   renderTodos();
 }
 
-// === Pomodoro Timer ===
+
 let timer;
 let timeLeft = 25 * 60;
 
