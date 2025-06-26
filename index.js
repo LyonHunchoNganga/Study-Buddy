@@ -12,7 +12,7 @@ function loadQuote() {
     .then((data) => {
       const random = data[Math.floor(Math.random() * data.length)];
       const text = random.text || "Keep pushing forward.";
-      const author = random.author || "lyon";
+      const author = random.author || "author unknown";
       quoteEl.innerText = `${text} — ${author}`;
       removeRetryButton();
     })
