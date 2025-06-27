@@ -70,7 +70,7 @@ This app is optimized for simplicity, usability, and clean UI — perfect for st
 - CSS3
 - JavaScript 
 
----////dessdssds
+---
 
 
 📄 License
