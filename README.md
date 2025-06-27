@@ -68,7 +68,7 @@ This app is optimized for simplicity, usability, and clean UI — perfect for st
 
 - HTML5
 - CSS3
-- JavaScript (Vanilla)
+- JavaScript 
 
 ---
 
