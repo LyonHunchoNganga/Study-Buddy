@@ -1,68 +1,49 @@
 window.addEventListener("DOMContentLoaded", () => {
-  loadTodos();
   loadQuote();
+  loadTodos();
+  updateTimerDisplay();
+  setupPlaylist();
+  loadDarkMode();
 });
 
+// === Quote Fetch ===
 function loadQuote() {
-  const quoteEl = document.getElementById("quote");
-  quoteEl.innerText = "Loading quote...";
-  
   fetch("https://type.fit/api/quotes")
-    .then((res) => res.json())
-    .then((data) => {
+    .then(res => res.json())
+    .then(data => {
       const random = data[Math.floor(Math.random() * data.length)];
-      const text = random.text || "Keep pushing forward.";
-      const author = random.author || "author unknown";
-      quoteEl.innerText = `${text} — ${author}`;
-      removeRetryButton();
+      document.getElementById("quote").innerText = random.text;
+      document.getElementById("author").innerText = random.author ? random.author : "Unknown";
     })
     .catch(() => {
-      quoteEl.innerText = "Keep pushing forward";
-      showRetryButton();
+      document.getElementById("quote").innerText = "Stay focused.";
+      document.getElementById("author").innerText = "";
     });
 }
 
-function showRetryButton() {
-  if (!document.getElementById("retry-btn")) {
-    const btn = document.createElement("button");
-    btn.id = "retry-btn";
-    btn.innerText = "Retry";
-    btn.style.marginTop = "10px";
-    btn.onclick = () => {
-      btn.disabled = true;
-      loadQuote();
-    };
-    document.getElementById("quote-section").appendChild(btn);
-  }
-}
-
-
+// === To-Do List ===
 const todoForm = document.getElementById("todo-form");
 const todoInput = document.getElementById("todo-input");
 const todoList = document.getElementById("todo-list");
-
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
 
 function saveTodos() {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
-
 function renderTodos() {
   todoList.innerHTML = "";
-  todos.forEach((todo, index) => {
+  todos.forEach((todo, i) => {
     const li = document.createElement("li");
-    li.innerHTML = `${todo} <button onclick="deleteTodo(${index})">❌</button>`;
+    li.innerHTML = `${todo} <button onclick="deleteTodo(${i})">❌</button>`;
     todoList.appendChild(li);
   });
 }
-
 function deleteTodo(index) {
   todos.splice(index, 1);
   saveTodos();
   renderTodos();
 }
-
-todoForm.addEventListener("submit", (e) => {
+todoForm.addEventListener("submit", e => {
   e.preventDefault();
   const value = todoInput.value.trim();
   if (value) {
@@ -72,22 +53,23 @@ todoForm.addEventListener("submit", (e) => {
     todoInput.value = "";
   }
 });
-
 function loadTodos() {
   renderTodos();
 }
 
-
+// === Pomodoro Timer ===
 let timer;
 let timeLeft = 25 * 60;
 
 function updateTimerDisplay() {
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-  document.getElementById("timer").innerText = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  const min = Math.floor(timeLeft / 60).toString().padStart(2, "0");
+  const sec = (timeLeft % 60).toString().padStart(2, "0");
+  document.getElementById("timer").innerText = `${min}:${sec}`;
 }
 
 document.getElementById("start-timer").addEventListener("click", () => {
+  const workDuration = parseInt(document.getElementById("work-duration").value) || 25;
+  timeLeft = workDuration * 60;
   clearInterval(timer);
   timer = setInterval(() => {
     if (timeLeft > 0) {
@@ -99,17 +81,48 @@ document.getElementById("start-timer").addEventListener("click", () => {
     }
   }, 1000);
 });
-
 document.getElementById("reset-timer").addEventListener("click", () => {
-  clearInterval(timer);
-  timeLeft = 25 * 60;
+  clearInterval(timer);timeLeft = (parseInt(document.getElementById("work-duration").value) || 25) * 60;
   updateTimerDisplay();
 });
 
-updateTimerDisplay();
+// === Audio Playlist ===
+function setupPlaylist() {
+  const player = document.getElementById("audio-player");
+  const tracks = document.querySelectorAll("#playlist li");
 
-const toggle = document.getElementById("dark-mode-toggle");
+  tracks.forEach(track => {
+    track.addEventListener("click", () => {
+      player.src = track.getAttribute("data-src");
+      player.play();
+      highlightTrack(track);
+    });
+  });
 
-toggle.addEventListener("change", () => {
-  document.body.classList.toggle("dark-mode", toggle.checked);
+  function highlightTrack(selected) {
+    tracks.forEach(t => t.classList.remove("active"));
+    selected.classList.add("active");
+  }
+
+  // Start first track automatically
+  if (tracks[0]) {
+    player.src = tracks[0].getAttribute("data-src");
+    player.play();
+    highlightTrack(tracks[0]);
+  }
+}
+
+// === Dark Mode Toggle ===
+const darkToggle = document.getElementById("dark-mode-toggle");
+
+darkToggle.addEventListener("change", e => {
+  document.body.classList.toggle("dark-mode", e.target.checked);
+  localStorage.setItem("darkMode", e.target.checked);
 });
+
+function loadDarkMode() {
+  const darkMode = localStorage.getItem("darkMode") === "true";
+  darkToggle.checked = darkMode;
+  document.body.classList.toggle("dark-mode", darkMode);
+}
+``
