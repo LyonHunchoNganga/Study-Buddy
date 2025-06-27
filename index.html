@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Study Buddy Dashboard</title>
   <link rel="stylesheet" href="./index.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
   <main>
     <h1>Study Buddy Dashboard</h1>
@@ -13,7 +16,7 @@
     <section id="quote-section">
       <h2>Motivational Quote</h2>
       <p id="quote"></p>
-        <p id="author"></p>
+      <p id="author"></p>
     </section>
 
     <section id="todo-section">
@@ -28,53 +31,37 @@
     <section id="pomodoro-section">
       <h2>Pomodoro Timer</h2>
       <div id="timer">25:00</div>
-      <button id="start-timer">Start</button>
-      <button id="reset-timer">Reset</button>
-        <div id="timer-controls">
-            <label for="work-duration">Work Duration (minutes):</label>
-            <input type="number" id="work-duration" value="25" min="1" />
-            <label for="break-duration">Break Duration (minutes):</label>
-            <input type="number" id="break-duration" value="5" min="1" />
-    </section>
-    <section>
-      <h2>📈 Progress Tracker</h2>
-      <div id="progress-bar">
-        <div id="progress-fill"></div>
+      <button id="start-timer">Start</button><button id="reset-timer">Reset</button>
+      <div id="timer-controls">
+        <label for="work-duration">Work Duration (minutes):</label>
+        <input type="number" id="work-duration" value="25" min="1" />
+        <label for="break-duration">Break Duration (minutes):</label>
+        <input type="number" id="break-duration" value="5" min="1" />
       </div>
-      <p id="progress-text">0% completed</p>
-  <h2>🎯 Daily Goal</h2>
-  <input type="text" id="daily-goal-input" placeholder="Enter your goal..."required />
-  <button type="submit">Add Goal</button>
-  <button type="save-goal-btn">Save Goal</button>
-</section>
+    </section>
 
-<section id="schedule-section">
-  <h2>📅 Study Schedule</h2>
-  <ul id="study-schedule">
-    <li>8:00 AM - Math</li>
-    <li>10:00 AM - Break</li>
-    <li>11:00 AM - Programming</li>
-    <li>2:00 PM - Review Notes</li>
-  </ul>
-</section>
+    <section id="study-materials-section">
+      <h2>Study Materials</h2>
+      <form id="material-form">
+        <input type="text" id="material-input" placeholder="Add study material..." required />
+        <button type="submit">Add</button>
+        <button type="reset">Reset</button>
+        <button type="display">Display</button>
+      </form>
+      <ul id="material-list"></ul>
+    </section>
 
-<section id="audio-section">
-  <h2>🎵 Focus Music</h2>
-  <audio controls>
-    <source src="focus-music.mp3" type="audio/mp3" />
-    Your browser does not support the audio element.
-  </audio>
-</section
-section>
-    <section id="progress-section">
     <section id="settings-section">
       <h2>Settings</h2>
-      <label>
-        <input type="checkbox" id="dark-mode-toggle" /> Dark Mode
+      <label><input type="checkbox" id="dark-mode-toggle" /> Dark Mode
       </label>
     </section>
   </main>
 
   <script src="./index.js"></script>
 </body>
+</html>
+  <script src="./index.js"></script>
+</body>
+
 </html>
