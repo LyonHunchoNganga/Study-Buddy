@@ -125,4 +125,60 @@ function loadDarkMode() {
   darkToggle.checked = darkMode;
   document.body.classList.toggle("dark-mode", darkMode);
 }
-``
+const materialForm = document.getElementById("material-form");
+const materialInput = document.getElementById("material-input");
+const materialList = document.getElementById("material-list");
+let materials = JSON.parse(localStorage.getItem("studyMaterials")) || [];
+
+// Save to localStorage
+function saveMaterials() {
+  localStorage.setItem("studyMaterials", JSON.stringify(materials));
+}
+
+// Render materials
+function renderMaterials() {
+  materialList.innerHTML = "";
+  if (materials.length === 0) {
+    materialList.innerHTML = "<li>No materials added.</li>";
+    return;
+  }
+
+  materials.forEach((item, index) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "❌";
+    delBtn.onclick = () => {
+      materials.splice(index, 1);
+      saveMaterials();
+      renderMaterials();
+    };
+    li.appendChild(delBtn);
+    materialList.appendChild(li);
+  });
+}
+
+// Handle add
+materialForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const value = materialInput.value.trim();
+  if (value) {
+    materials.push(value);saveMaterials();
+    renderMaterials();
+    materialInput.value = "";
+  }
+});
+
+// Handle reset
+materialForm.querySelector('button[type="reset"]').addEventListener("click", () => {
+  materialInput.value = "";
+});
+
+// Handle display
+materialForm.querySelector('button[type="display"]').addEventListener("click", (e) => {
+  e.preventDefault();
+  renderMaterials();
+});
+
+// Initial display
+renderMaterials();

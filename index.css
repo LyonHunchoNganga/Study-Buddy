@@ -3,7 +3,7 @@ body {
   font-family: 'Inter', Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #f0f4ff, #d9e4ff);
+  background: linear-gradient(135deg, brown,aqua);
   color: #222;
   transition: background-color 0.4s ease, color 0.4s ease;
   min-height: 100vh;
@@ -13,7 +13,7 @@ body {
   padding: 40px 20px;
 } 
 main {
-  background: #230c81e8;
+  background: #3e21b1e8;
   max-width: 700px;
   width: 100%;
   border-radius: 16px;
