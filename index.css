@@ -181,3 +181,19 @@ body.dark-mode h1,
 body.dark-mode h2 {
   color: #e0e0e0;
 }
+#playlist {
+  list-style: none;
+  padding: 0;
+}
+
+#playlist li {
+  cursor: pointer;
+  padding: 5px;
+  margin-bottom: 3px;
+  background: #eee;
+  border-radius: 5px;
+}
+
+#playlist li:hover {
+  background: #ccc;
+}
