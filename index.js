@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", () => {
   loadDarkMode();
 });
 
-// === Quote Fetch ===
+
 function loadQuote() {
   fetch("https://type.fit/api/quotes")
     .then(res => res.json())
